@@ -106,27 +106,49 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
 # more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s [%(asctime)s] %(module)s %(message)s',
+        },
+        'simple': {
+            'format': '%(message)s',
         }
     },
     'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
     },
     'loggers': {
-        'django.request': {
+        'django': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
             'propagate': True,
+            'level': 'ERROR',
         },
-    }
+        'api': {
+            'handlers': ['mail_admins'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'ext_data': {
+            'handlers': ['mail_admins'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'module': {
+            'handlers': ['mail_admins'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+    },
 }
+
 ########## END LOGGING CONFIGURATION
 
 
@@ -234,3 +256,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 ########## END STATIC FILE CONFIGURATION
+
+
+########## EMAIL CONFIGURATION
+# Django email settings
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 0
+EMAIL_USE_SSL = True
+
+ADMIN_EMAIL = ''
+SEND_EMAIL = False
+SENDER_EMAIL = ''
+SENDER_EMAIL_HOST = ''
+SENDER_EMAIL_PORT = 0
+SENDER_EMAIL_PASSWORD = ''
+
+EMAIL_RECIPIENTS = ()
+########## END EMAIL CONFIGURATION
