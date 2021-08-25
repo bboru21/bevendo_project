@@ -47,3 +47,6 @@ README-local.md
 # scrapy spiders cached files
 **/spiders/_cache/*
 !**/spiders/_cache/README.md
+
+# assets
+assets
