@@ -1,6 +1,7 @@
 from rest_framework import ( viewsets, permissions )
 from rest_framework.decorators import api_view
 
+from django.http import HttpResponse
 
 from .serializers import (
     CocktailSerializer,
@@ -12,6 +13,9 @@ from .models import (
     CocktailIngredient,
     Ingredient,
 )
+
+def index(request):
+    return HttpResponse("api")
 
 
 class CocktailViewSet(viewsets.ReadOnlyModelViewSet):
