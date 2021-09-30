@@ -126,6 +126,10 @@ LOGGING = {
         },
     },
     'loggers': {
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
         'django': {
             'handlers': ['mail_admins'],
             'propagate': True,
