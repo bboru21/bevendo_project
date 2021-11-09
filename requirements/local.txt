@@ -1,7 +1,7 @@
 # Local development dependencies go here
 -r test.txt
 
-django-debug-toolbar==1.2.1
-flake8==3.9.0
-pre-commit==2.11.1
-Sphinx==1.2.2
+django-debug-toolbar==3.2.2
+flake8==4.0.1
+pre-commit==2.15.0
+Sphinx==4.2.0
