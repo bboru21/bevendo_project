@@ -38,3 +38,6 @@ clean_apps:
 
 clean_all: clean_project clean_apps
 	rm -rf $(VENV)
+
+test:
+	$(PYTHON) $(PROJECT)/manage.py test
