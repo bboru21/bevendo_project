@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from api.utils import get_email_deals
+from ext_data.models import get_latest_price_pull_date
+
+def index(request):
+
+    latest_pull_date = get_latest_price_pull_date()
+    deals = get_email_deals(latest_pull_date)
+
+    return render(request, 'client/index.html', { 'deals': deals })
