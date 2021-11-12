@@ -9,4 +9,9 @@ def index(request):
     latest_pull_date = get_latest_price_pull_date()
     deals = get_email_deals(latest_pull_date)
 
-    return render(request, 'client/index.html', { 'deals': deals })
+    context = {
+        'deals': deals,
+        'latest_pull_date': latest_pull_date.strftime('%B %d, %Y'),
+    }
+
+    return render(request, 'client/index.html', context)
