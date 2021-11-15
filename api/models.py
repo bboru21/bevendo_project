@@ -112,17 +112,18 @@ class Cocktail(models.Model):
 
 
 class Feast(models.Model):
-    date = models.DateField()
+    date = models.DateField(
+        blank=True,     # admin
+        null=True,      # database
+    )
     name = models.CharField(max_length=250)
     cocktails = models.ManyToManyField(Cocktail, default=None, blank=True)
 
     def __str__(self):
-        return '{} {} - {} ({})'.format(
-            self.date.strftime('%B'),
-            ordinal(self.date.day),
-            self.name,
-            self.id,
-        )
+        _str = f"{self.name} ({self.id})"
+        if self.date:
+            _str = f"{self.date.strftime('%B')} {ordinal(self.date.day)} - {_str}"
+        return _str
 
     class Meta:
         ordering = ['date']
