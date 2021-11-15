@@ -14,8 +14,10 @@ from ext_data.models import (
 
 from .constants import DEALS_MIN_PRICE_SCORE
 
-def get_email_date_range():
-    start_date = date.today() + timedelta(days=1)
+def get_email_date_range(start_date=None):
+
+    if not start_date:
+        start_date = date.today() + timedelta(days=1)
     end_date = start_date + timedelta(days=7)
     return (start_date, end_date)
 
