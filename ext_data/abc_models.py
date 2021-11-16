@@ -16,6 +16,7 @@ from api.constants import (
 ABC_PRODUCT_SIZES = (
     '50 ml',
     '100 ml',
+    '118 ml',
     '200 ml',
     '375 ml',
     '473 18 ml',
@@ -42,6 +43,7 @@ class ABCProduct(models.Model):
 
     best_price_50_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     best_price_100_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
+    best_price_118_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     best_price_200_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     best_price_375_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     best_price_473_18_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
@@ -52,6 +54,7 @@ class ABCProduct(models.Model):
 
     avg_price_50_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     avg_price_100_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
+    avg_price_118_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     avg_price_200_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     avg_price_375_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
     avg_price_473_18_ml = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=None, blank=True)
