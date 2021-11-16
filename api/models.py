@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.humanize.templatetags.humanize import ordinal
 
 INGREDIENT_MEASUREMENTS = (
+    ('bottle', 'bottle'),
     ('broken in half', 'broken in half'),
     ('chopped canned', 'chopped canned'),
     ('cube', 'cube'),
