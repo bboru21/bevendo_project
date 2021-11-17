@@ -10,6 +10,7 @@ from ext_data.models import (
     ABCPrice,
     format_abc_product_avg_column_name,
     format_abc_product_best_column_name,
+    CalapiInadiutoriumLiturgicalDay,
 )
 
 from .constants import DEALS_MIN_PRICE_SCORE
@@ -22,7 +23,27 @@ def get_email_date_range(start_date=None):
     return (start_date, end_date)
 
 def get_email_feasts_products(start_date, end_date, latest_pull_date):
-    feasts = Feast.objects.filter(date__range=(start_date, end_date))
+
+    feast_ids = []
+
+    # new feast logic to incorporate seasons and floating feast days
+    liturgical_days = CalapiInadiutoriumLiturgicalDay.objects \
+        .filter(date__range=(start_date, end_date))
+
+    seasons = list(
+        set(
+            liturgical_days \
+                .values_list('season', flat=True)
+        )
+    )
+
+    feast_ids += list(Feast.objects.filter(ext_calapi_inadiutorium_season__in=seasons).values_list('pk', flat=True))
+    feast_ids += list(Feast.objects.filter(date__range=(start_date, end_date)).values_list('pk', flat=True))
+
+    for liturgical_day in liturgical_days:
+        feast_ids += list(liturgical_day.celebrations.exclude(feast__isnull=True).values_list('feast__pk', flat=True))
+
+    feasts = Feast.objects.filter(pk__in=feast_ids)
 
     _feasts = []
     _products = []
@@ -32,8 +53,8 @@ def get_email_feasts_products(start_date, end_date, latest_pull_date):
 
         _feast = {
             'name': feast.name,
-            'date': feast.date.strftime('%B %d'),
-            'url': 'https://www.catholicculture.org/culture/liturgicalyear/calendar/day.cfm?date={}'.format( feast.date.strftime('%Y-%m-%d') ),
+            'date': feast.date.strftime('%B %d') if feast.date else None,
+            'url': f'https://www.catholicculture.org/culture/liturgicalyear/calendar/day.cfm?date={feast.date.strftime("%Y-%m-%d")}' if feast.date else None,
         }
 
         cocktails = feast.cocktails.all()

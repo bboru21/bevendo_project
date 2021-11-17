@@ -56,8 +56,8 @@ class FeastAdmin(AutocompleteAdmin):
     )
     list_filter = ('date',)
     ordering = ('date',)
-    fields = ('date', 'name', 'cocktails',)
-    autocomplete_fields = ('cocktails',)
+    fields = ('date', 'name', 'cocktails', 'ext_calapi_inadiutorium_season', 'ext_calapi_inadiutorium_celebration',)
+    autocomplete_fields = ('cocktails', 'ext_calapi_inadiutorium_celebration',)
 
 
 @admin.register(ControlledBeverage)
