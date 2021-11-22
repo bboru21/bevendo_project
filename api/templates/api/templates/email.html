@@ -49,7 +49,12 @@
         <p>Your weekly dose of Drinking with the Saints from {{start_date}} to {{end_date}}. Ingredients that appear in <span class="is-controlled">red</span> are controlled.</p>
         {% for feast in feasts %}
         <section>
-            <h2><a href="{{feast.url}}" target="_blank">{{feast.name}} - {{feast.date}}</a></h2>
+            <h2>
+                <a href="{{feast.url}}" target="_blank">
+                    {{feast.name}}
+                    {% if feast.date %} - {{feast.date}}{% endif %}
+                </a>
+            </h2>
             {% for cocktail in feast.cocktails %}
             <div>
                 <h3>{{cocktail.name}}</h3>

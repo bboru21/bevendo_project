@@ -1,39 +1,44 @@
 from django.db import models
 from django.contrib.humanize.templatetags.humanize import ordinal
 
+
 INGREDIENT_MEASUREMENTS = (
-    ('bottle', 'bottle'),
+    ('bottle', 'bottles'),
     ('broken in half', 'broken in half'),
     ('chopped canned', 'chopped canned'),
-    ('cube', 'cube'),
-    ('cup', 'cup'),
-    ('dash', 'dash'),
-    ('drop', 'drop'),
+    ('cube', 'cubes'),
+    ('cup', 'cups'),
+    ('dash', 'dashes'),
+    ('drop', 'drops'),
     ('hollowed out', 'hollowed out'),
-    ('leaf', 'leaf'),
-    ('liter', 'liter'),
-    ('jigger', 'jigger'),
-    ('ounce', 'ounce'),
-    ('part', 'part'),
-    ('peel', 'peel'),
-    ('pint', 'pint'),
-    ('scoop', 'scoop'),
-    ('slice', 'slice'),
-    ('splash', 'splash'),
-    ('spiral', 'spiral'),
-    ('sprig', 'sprig'),
-    ('sprinkle', 'sprinkle'),
-    ('stalk', 'stalk'),
-    ('tablespoon', 'tablespoon'),
-    ('teaspoon', 'teaspoon'),
+    ('leaf', 'leaves'),
+    ('liter', 'liters'),
+    ('jigger', 'jiggers'),
+    ('ounce', 'ounces'),
+    ('part', 'parts'),
+    ('peel', 'peels'),
+    ('pint', 'pints'),
+    ('scoop', 'scoops'),
+    ('slice', 'slices'),
+    ('splash', 'splashes'),
+    ('spiral', 'spirals'),
+    ('sprig', 'sprigs'),
+    ('sprinkle', 'sprinkles'),
+    ('stalk', 'stalks'),
+    ('tablespoon', 'tablespoons'),
+    ('teaspoon', 'teaspoons'),
     ('thinly sliced', 'thinly sliced'),
-    ('twist', 'twist'),
-    ('wedge', 'wedge'),
-    ('wheel', 'wheel'),
-    ('white', 'white'),
-    ('yolk', 'yolk'),
+    ('twist', 'twists'),
+    ('wedge', 'wedges'),
+    ('wheel', 'wheels'),
+    ('white', 'whites'),
+    ('yolk', 'yolks'),
     ('zest', 'zest'),
 )
+
+MEASUREMENT_PLURAL_DICT = { singular: plural for (singular, plural) in INGREDIENT_MEASUREMENTS }
+
+MEASUREMENTS_CHOICES = [ (singular, singular.title()) for ( singular, plural) in INGREDIENT_MEASUREMENTS]
 
 '''
     Helpful here: Would you buy it at the store? If so, it's an ingredient. If
@@ -81,7 +86,7 @@ class CocktailIngredient(models.Model):
     )
     measurement = models.CharField(
         max_length=20,
-        choices=INGREDIENT_MEASUREMENTS,
+        choices=MEASUREMENTS_CHOICES,
         null=True,
         blank=True,
         default=None,
