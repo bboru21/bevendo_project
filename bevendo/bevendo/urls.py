@@ -20,4 +20,5 @@ urlpatterns = [
     path('', include('client.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('ext_data/', include('ext_data.urls')),
 ]

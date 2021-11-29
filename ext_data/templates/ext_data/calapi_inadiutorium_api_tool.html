@@ -1,0 +1,76 @@
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Calapi Inadiutorium API Tool</title>
+    </head>
+    <body>
+        <h1>Calapi Inadiutorium API Tool</h1>
+
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            <select name="month">
+                {% for month in months %}
+                <option value="{{month}}">{{month}}</option>
+                {% endfor %}
+            </select>
+            <select name="day">
+                {% for day in days %}
+                <option value="{{day}}">{{day}}</option>
+                {% endfor %}
+            </select>
+            <select name="year">
+                {% for year in years %}
+                <option value="{{year}}">{{year}}</option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" name="submit" value="Submit" />
+        </form>
+
+        <pre id="response-console">
+            API Response Console
+        </pre>
+
+
+        <script type="text/javascript">
+        (function() {
+
+            function _log(msg) {
+                if (typeof this._console === 'undefined') {
+                    this._console = document.querySelector("#response-console");
+                }
+                this._console.innerHTML = `${msg}`;
+            }
+
+            function doFetch(url) {
+                fetch(url)
+                        .then( response => response.json())
+                        .then( json_response => _log(JSON.stringify(json_response, null, 4)));
+            }
+
+
+            let form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                _log('Loading...');
+
+                let month = form.querySelector('select[name="month"]').value;
+                let day = form.querySelector('select[name="day"]').value;
+                let year = form.querySelector('select[name="year"]').value;
+
+                const url = "{% url 'calapi_inadiutorium_api_request' %}";
+                const params = [];
+                year && params.push(`year=${year}`);
+                month && params.push(`month=${month}`);
+                day && params.push(`day=${day}`);
+
+                doFetch(`${url}?${params.join('&')}`);
+            });
+
+        }());
+        </script>
+    </body>
+</html>

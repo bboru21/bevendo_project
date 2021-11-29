@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import (
     ABCProduct,
+    CalapiInadiutoriumCelebration,
 )
 
 class ProductAdmin(admin.ModelAdmin):
@@ -68,3 +69,9 @@ class ABCProductAdmin(ProductAdmin):
     )
 
 admin.site.register(ABCProduct, ABCProductAdmin)
+
+@admin.register(CalapiInadiutoriumCelebration)
+class CalapiInadiutoriumCelebrationAdmin(admin.ModelAdmin):
+    search_fields = (
+        'title',
+    )

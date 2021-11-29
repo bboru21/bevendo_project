@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.humanize.templatetags.humanize import ordinal
 
+from ext_data.calapi_inadiutorium_models import SEASON_CHOICES
 
 INGREDIENT_MEASUREMENTS = (
     ('bottle', 'bottles'),
@@ -124,6 +125,14 @@ class Feast(models.Model):
     )
     name = models.CharField(max_length=250)
     cocktails = models.ManyToManyField(Cocktail, default=None, blank=True)
+    ext_calapi_inadiutorium_season = models.CharField(max_length=9, choices=SEASON_CHOICES, null=True, blank=True)
+    ext_calapi_inadiutorium_celebration = models.OneToOneField(
+        'ext_data.CalapiInadiutoriumCelebration',
+        on_delete=models.CASCADE,
+        related_name='feast',
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         _str = f"{self.name} ({self.id})"
