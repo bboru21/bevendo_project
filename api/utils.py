@@ -227,3 +227,12 @@ def get_email_deals(latest_pull_date):
     deals = sorted(deals, key = lambda i: i['price_below_average'], reverse=True)
 
     return deals
+
+
+def nextyear(dt):
+   try:
+       return dt.replace(year=dt.year+1)
+   except ValueError:
+       # February 29th in a leap year
+       # Add 365 days instead to arrive at March 1st
+       return dt + timedelta(days=365)

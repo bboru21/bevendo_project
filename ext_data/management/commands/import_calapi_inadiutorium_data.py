@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from django.core.management import BaseCommand
 from django.db import transaction
@@ -12,91 +13,71 @@ from ext_data.calapi_inadiutorium_api import (
     CalapiInadiutoriumDateAPI,
 )
 
+from api.utils import nextyear
+
+logger = logging.getLogger(__name__)
+
+
 class Command(BaseCommand):
 
     def add_arguments(self, parser):
 
         parser.add_argument(
-            '--pull',
-            action='store_true',
-            help='pull data from Calapi Inadiutorium API',
-        )
-        parser.add_argument(
             '--month',
             type=int,
             help='month for which to pull data',
+            choices=(1,2,3,4,5,6,7,8,9,10,11,12),
         )
         parser.add_argument(
             '--year',
             type=int,
             help='year for which to pull data',
-        )
-
-        parser.add_argument(
-            '--update',
-            action='store_true',
+            default=nextyear(datetime.datetime.now()),
         )
 
     def handle(self, **options):
 
-        if options['pull']:
-            api = CalapiInadiutoriumDateAPI()
+        start_date = datetime.datetime.now()
 
-            # data = api.get_liturgical_days_by_date_range()
-            # print(data)
+        api = CalapiInadiutoriumDateAPI()
 
-            # start_date = datetime.datetime.now() + datetime.timedelta(days=3)
-            # end_date = start_date + datetime.timedelta(days=7)
-            # data = api.get_liturgical_days_by_date_range(start_date, end_date)
-            # print(data)
+        if options['month']:
+            data = api.get_liturgical_days_by_month(month=options['month'], year=options['year'])
+        else:
+            data = api.get_liturgical_days_by_year(options['year'])
 
-            # data = api.get_liturgical_days_by_month()
-            # print(data)
+        logger.debug(data)
 
-            data = api.get_liturgical_days_by_year(2022)
-            print(data)
+        with transaction.atomic():
+            for result in data['results']:
 
-            with transaction.atomic():
-                for result in data['results']:
+                liturgical_day_obj, created = CalapiInadiutoriumLiturgicalDay.objects.update_or_create(
+                    date = result['date'],
+                    defaults = {
+                        'season': result['season'],
+                        'season_week': result['season_week'],
+                        'weekday': result['weekday'],
+                    }
+                )
 
-                    liturgical_day_obj, created = CalapiInadiutoriumLiturgicalDay.objects.update_or_create(
-                        date = result['date'],
+                logger.debug(f'liturgical_day {liturgical_day_obj.pk}, created: {created}')
+
+                celebration_objs = []
+                for celebration in result['celebrations']:
+                    celebration_obj, created = CalapiInadiutoriumCelebration.objects.update_or_create(
+                        title = celebration['title'],
                         defaults = {
-                            'season': result['season'],
-                            'season_week': result['season_week'],
-                            'weekday': result['weekday'],
-                        }
+                            'colour': celebration['colour'],
+                            'rank': celebration['rank'],
+                            'rank_num': celebration['rank_num'],
+                        },
                     )
+                    celebration_objs.append(celebration_obj)
 
-                    print('liturgical_day', liturgical_day_obj.pk, created)
+                    logger.debug(f'celebration {celebration_obj.pk}, created: {created}')
 
-                    celebration_objs = []
-                    for celebration in result['celebrations']:
-                        celebration_obj, created = CalapiInadiutoriumCelebration.objects.update_or_create(
-                            title = celebration['title'],
-                            defaults = {
-                                'colour': celebration['colour'],
-                                'rank': celebration['rank'],
-                                'rank_num': celebration['rank_num'],
-                            },
-                        )
-                        celebration_objs.append(celebration_obj)
+                liturgical_day_obj.celebrations.set( celebration_objs )
 
-                        print('celebration', celebration_obj.pk, created)
+        runtime_delta = datetime.datetime.now() - start_date
 
-                    liturgical_day_obj.celebrations.set( celebration_objs )
-
-
-
-        if options['update']:
-
-            start_date = datetime.date.fromisoformat('2021-11-27')
-            end_date = datetime.date.fromisoformat('2021-12-26')
-
-            days = CalapiInadiutoriumLiturgicalDay.objects.filter(date__range=(start_date, end_date))
-            for day in days:
-                print(day, day.season)
-                for celebration in day.celebrations.all():
-                    print('\t', celebration)
-
-        print('finis')
+        logger.info(f'import_calapi_inadiutorium_data completed on {start_date.isoformat()} in {str(runtime_delta)}')
