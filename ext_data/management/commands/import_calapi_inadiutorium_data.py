@@ -32,7 +32,7 @@ class Command(BaseCommand):
             '--year',
             type=int,
             help='year for which to pull data',
-            default=nextyear(datetime.datetime.now()),
+            default=nextyear(datetime.datetime.now()).year,
         )
 
     def handle(self, **options):
