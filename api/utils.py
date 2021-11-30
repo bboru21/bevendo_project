@@ -40,10 +40,10 @@ def _format_amount(amount):
         whole = '' if not whole else f'{int(whole)} '
          #logger.debug(f'{whole}{frac}, {amount}')
         return f'{whole}{frac}'
+    except BaseException:
+        pass
 
-    except BaseException as error:
-        logger.error(f'{error}, {amount}')
-        return amount
+    return amount
 
 def _format_measurement(measurement, amount):
     if amount and amount > 1:
