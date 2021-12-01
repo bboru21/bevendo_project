@@ -93,6 +93,6 @@ class FeastViewSet(viewsets.ReadOnlyModelViewSet):
      '''
         API Endpoint for Feasts
      '''
-     queryset = Feast.objects.all().order_by('date')
+     queryset = Feast.objects.all()
      serializer_class = FeastSerializer
      permission_classes = [permissions.IsAuthenticated]

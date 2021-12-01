@@ -14,7 +14,6 @@ from ext_data.models import (
 )
 # from util.util import Email
 from datetime import (
-    date,
     timedelta,
     datetime,
 )

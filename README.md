@@ -6,6 +6,8 @@ Django layout is based off of the [Django Twoscoops Project].
 
 # Testing
 
+## Unit Tests
+
 Running unittests:
 
     bevendo_project$ bevendo/manage.py test
@@ -16,10 +18,16 @@ Running unitests with coverage:
     bevendo_project$ coverage run --source='.' bevendo/manage.py test api
     bevendo_project$ coverage report
 
+## Production Data Tests
+
+Test `get_email_feasts_products` utility method:
+
+    bevendo_project$ python bevendo/manage.py test_get_email_feasts_products --settings bevendo.settings.local
+
 ## Testing Links
 
-    [Python Unittest TestCase]
-    [Django Testing]
+- [Python Unittest TestCase]
+- [Django Testing]
 
 # Floating Feast Days
 

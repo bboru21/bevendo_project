@@ -2,6 +2,7 @@ import logging
 from datetime import (
     date,
     timedelta,
+    datetime,
 )
 from fractions import Fraction
 import math
@@ -73,12 +74,16 @@ def get_email_feasts_products(start_date, end_date, latest_pull_date):
     )
 
     feast_ids += list(Feast.objects.filter(ext_calapi_inadiutorium_season__in=seasons).values_list('pk', flat=True))
-    feast_ids += list(Feast.objects.filter(date__range=(start_date, end_date)).values_list('pk', flat=True))
+    feast_ids += list(Feast.objects.filter(_date__range=(start_date, end_date)).values_list('pk', flat=True))
 
     for liturgical_day in liturgical_days:
         feast_ids += list(liturgical_day.celebrations.exclude(feast__isnull=True).values_list('feast__pk', flat=True))
 
-    feasts = Feast.objects.filter(pk__in=feast_ids)
+    # resort according to the date property
+    feasts = sorted(
+        Feast.objects.filter(pk__in=feast_ids),
+        key=lambda f: f.date if f.date else datetime.strptime('1900-01-01', '%Y-%m-%d').date(),
+    )
 
     _feasts = []
     _products = []
