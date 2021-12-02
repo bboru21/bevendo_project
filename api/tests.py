@@ -1,7 +1,11 @@
+from datetime import datetime
+
 from django.test import TestCase
+
 from api.models import (
     Ingredient,
     ControlledBeverage,
+    Feast,
 )
 
 
@@ -61,3 +65,23 @@ class ControlledBeverageTest(TestCase):
 
         beverage.is_in_stock = True
         self.assertTrue(beverage.is_in_stock)
+
+
+class FeastTest(TestCase):
+
+    def setUp(self):
+        date = datetime.strptime('2024-01-01', '%Y-%m-%d')
+        Feast.objects.create(
+            name='Snickers Feast',
+            _date=date,
+        )
+        Feast.objects.create(
+            name='Date-less Feast',
+        )
+
+    def test_str(self):
+        feast1 = Feast.objects.get(pk=1)
+        self.assertIsInstance(feast1.__str__(), str)
+
+        feast2 = Feast.objects.get(pk=2)
+        self.assertIsInstance(feast2.__str__(), str)

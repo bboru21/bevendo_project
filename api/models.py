@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.humanize.templatetags.humanize import ordinal
 
@@ -119,9 +121,10 @@ class Cocktail(models.Model):
 
 
 class Feast(models.Model):
-    date = models.DateField(
+    _date = models.DateField(
         blank=True,     # admin
         null=True,      # database
+        db_column='date',
     )
     name = models.CharField(max_length=250)
     cocktails = models.ManyToManyField(Cocktail, default=None, blank=True)
@@ -136,11 +139,22 @@ class Feast(models.Model):
 
     def __str__(self):
         _str = f"{self.name} ({self.id})"
-        if self.date:
-            _str = f"{self.date.strftime('%B')} {ordinal(self.date.day)} - {_str}"
+        if self._date:
+            _str = f"{self._date.strftime('%B')} {ordinal(self._date.day)} - {_str}"
         return _str
 
     class Meta:
-        ordering = ['date']
+        ordering = ['_date']
         app_label = 'api'
         db_table = 'api_feast'
+
+    @property
+    def date(self):
+        if self._date:
+            return self._date
+        elif self.ext_calapi_inadiutorium_celebration:
+            current_year = datetime.datetime.now().year
+            celebration = self.ext_calapi_inadiutorium_celebration
+            liturgical_day = celebration.liturgical_days.get(date__year=current_year)
+            return liturgical_day.date
+        return None

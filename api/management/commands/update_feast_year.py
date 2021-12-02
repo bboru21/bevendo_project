@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         today = datetime.now()
 
-        feasts = Feast.objects.filter(date__lt=today)
+        feasts = Feast.objects.filter(_date__lt=today)
         _updated = []
 
         feast_id = None
@@ -31,10 +31,10 @@ class Command(BaseCommand):
                 for feast in feasts:
 
                     feast_id = feast.id
-                    past_feast_date = feast.date
+                    past_feast_date = feast._date
                     future_feast_date = past_feast_date.replace(year=past_feast_date.year + 1)
 
-                    feast.date = future_feast_date
+                    feast._date = future_feast_date
                     feast.save()
                     _updated.append(feast.id)
 
@@ -43,4 +43,3 @@ class Command(BaseCommand):
             logger.error('db transation failed updating feast {} from {} to {}: {}'.format(feast_id, past_feast_date, future_feast_date, error))
 
         logger.info('{} feasts were updated: {}'.format(len(_updated), _updated))
-
