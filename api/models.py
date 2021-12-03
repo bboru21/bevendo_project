@@ -34,6 +34,7 @@ INGREDIENT_MEASUREMENTS = (
     ('twist', 'twists'),
     ('wedge', 'wedges'),
     ('wheel', 'wheels'),
+    ('whole', 'whole'),
     ('white', 'whites'),
     ('yolk', 'yolks'),
     ('zest', 'zest'),
@@ -42,6 +43,13 @@ INGREDIENT_MEASUREMENTS = (
 MEASUREMENT_PLURAL_DICT = { singular: plural for (singular, plural) in INGREDIENT_MEASUREMENTS }
 
 MEASUREMENTS_CHOICES = [ (singular, singular.title()) for ( singular, plural) in INGREDIENT_MEASUREMENTS]
+
+PREPARATION_CHOICES = (
+    ('broken in half', 'Broken In Half'),
+    ('chopped canned', 'Chopped Canned'),
+    ('hollowed out', 'Hollowed Out'),
+    ('thinly sliced', 'Thinly Sliced'),
+)
 
 '''
     Helpful here: Would you buy it at the store? If so, it's an ingredient. If
@@ -94,9 +102,26 @@ class CocktailIngredient(models.Model):
         blank=True,
         default=None,
     )
+    preparation = models.CharField(
+        max_length=255,
+        choices=PREPARATION_CHOICES,
+        null=True,
+        blank=True,
+        default=None,
+    )
 
     def __str__(self):
-        return f'{self.ingredient.name} ({self.amount} {self.measurement})'
+        parts = []
+
+        if self.amount:
+            parts.append(str(self.amount))
+        if self.measurement:
+            parts.append(self.measurement)
+        parts.append(self.ingredient.name)
+        if self.preparation:
+            parts.append(self.preparation)
+
+        return ' '.join(parts)
 
     class Meta:
         ordering = []

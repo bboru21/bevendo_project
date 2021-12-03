@@ -34,7 +34,7 @@ class CocktailAdmin(AutocompleteAdmin):
 @admin.register(CocktailIngredient)
 class CocktailIngredientAdmin(AutocompleteAdmin):
     ordering = ('ingredient__name',)
-    fields = ('ingredient', 'amount', 'measurement',)
+    fields = ('ingredient', 'amount', 'measurement', 'preparation',)
     autocomplete_fields = ('ingredient',)
     search_fields = ('ingredient__name',)
 

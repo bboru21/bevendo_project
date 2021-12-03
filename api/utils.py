@@ -126,6 +126,7 @@ def get_email_feasts_products(start_date, end_date, latest_pull_date):
                         'is_controlled': True,
                         'amount': _format_amount(cocktail_ingredient.amount),
                         'measurement': _format_measurement(cocktail_ingredient.measurement, cocktail_ingredient.amount),
+                        'preparation': cocktail_ingredient.preparation,
                     }
                     # print(ingredient, products)
                     for product in products:
@@ -187,6 +188,7 @@ def get_email_feasts_products(start_date, end_date, latest_pull_date):
                         'is_controlled': False,
                         'amount': _format_amount(cocktail_ingredient.amount),
                         'measurement': _format_measurement(cocktail_ingredient.measurement, cocktail_ingredient.amount),
+                        'preparation': cocktail_ingredient.preparation,
                     })
 
             _cocktail['ingredients'] = _ingredients

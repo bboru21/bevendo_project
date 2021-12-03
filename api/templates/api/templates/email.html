@@ -67,6 +67,7 @@
                             {% if ingredient.amount %}{{ingredient.amount}} {% endif %}
                             {% if ingredient.measurement %}{{ingredient.measurement}} {% endif %}
                             {{ingredient.name}}
+                            {% if ingredient.preparation %}, {{ingredient.preparation}} {% endif %}
                         </div>
                     </li>
                     {% endfor %}
