@@ -7,13 +7,10 @@ from ext_data.calapi_inadiutorium_models import SEASON_CHOICES
 
 INGREDIENT_MEASUREMENTS = (
     ('bottle', 'bottles'),
-    ('broken in half', 'broken in half'),
-    ('chopped canned', 'chopped canned'),
     ('cube', 'cubes'),
     ('cup', 'cups'),
     ('dash', 'dashes'),
     ('drop', 'drops'),
-    ('hollowed out', 'hollowed out'),
     ('leaf', 'leaves'),
     ('liter', 'liters'),
     ('jigger', 'jiggers'),
@@ -30,7 +27,6 @@ INGREDIENT_MEASUREMENTS = (
     ('stalk', 'stalks'),
     ('tablespoon', 'tablespoons'),
     ('teaspoon', 'teaspoons'),
-    ('thinly sliced', 'thinly sliced'),
     ('twist', 'twists'),
     ('wedge', 'wedges'),
     ('wheel', 'wheels'),
