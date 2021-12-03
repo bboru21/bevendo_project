@@ -50,10 +50,15 @@
         {% for feast in feasts %}
         <section>
             <h2>
+                {% if feast.url %}
                 <a href="{{feast.url}}" target="_blank">
                     {{feast.name}}
                     {% if feast.date %} - {{feast.date}}{% endif %}
                 </a>
+                {% else %}
+                    {{feast.name}}
+                    {% if feast.date %} - {{feast.date}}{% endif %}
+                {% endif %}
             </h2>
             {% for cocktail in feast.cocktails %}
             <div>

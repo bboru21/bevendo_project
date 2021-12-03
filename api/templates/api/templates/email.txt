@@ -12,7 +12,7 @@ Your weekly dose of Drinking with the Saints from {{start_date}} to {{end_date}}
     Ingredients:
 
     {% for ingredient in cocktail.ingredients %}
-        * {% if ingredient.amount %}{{ingredient.amount}} {% endif %}{% if ingredient.measurement %}{{ingredient.measurement}} {% endif %}{{ingredient.name}}
+        * {% if ingredient.amount %}{{ingredient.amount}} {% endif %}{% if ingredient.measurement %}{{ingredient.measurement}} {% endif %}{{ingredient.name}}{% if ingredient.preparation %}, {{ingredient.preparation}}{% endif %}
     {% endfor %}
 
     Instructions:

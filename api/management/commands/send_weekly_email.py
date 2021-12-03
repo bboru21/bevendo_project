@@ -23,7 +23,7 @@ from datetime import (
 )
 
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 from api.utils import (
     get_email_date_range,
@@ -110,15 +110,16 @@ class Command(BaseCommand):
                 'deals_min_price_score': DEALS_MIN_PRICE_SCORE,
             })
 
-            recipient_list = settings.EMAIL_RECIPIENTS
-
-            success = send_mail(
+            msg = EmailMultiAlternatives(
                 subject='Bevendo: Your Weekly Drinking with the Saints Cocktails',
+                body=message,
                 from_email=settings.SENDER_EMAIL,
-                recipient_list=recipient_list,
-                message=message,
-                html_message=html_message,
+                bcc=settings.EMAIL_RECIPIENTS,
             )
+            msg.attach_alternative(html_message, 'text/html')
+            success = msg.send()
+
+            # print(success)
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
