@@ -1,6 +1,7 @@
 import logging
 import re
 
+from django.contrib.auth.models import User
 from django.core import management
 from django.core.management.base import BaseCommand, CommandError
 
@@ -85,6 +86,10 @@ class Command(BaseCommand):
         if len(feasts) == 0:
             logger.warn('get_email_feasts_products returned no feasts, no e-mail will be sent')
         else:
+
+            users = User.objects.filter(groups__name='Weekly E-Mail').filter(is_active=True)
+            recipient_list = list(users.values_list('email', flat=True))
+
             deals = get_email_deals(latest_pull_date)
 
             message = render_to_string('api/templates/email.txt', {
@@ -114,7 +119,7 @@ class Command(BaseCommand):
                 subject='Bevendo: Your Weekly Drinking with the Saints Cocktails',
                 body=message,
                 from_email=settings.SENDER_EMAIL,
-                bcc=settings.EMAIL_RECIPIENTS,
+                bcc=recipient_list,
             )
             msg.attach_alternative(html_message, 'text/html')
             success = msg.send()
