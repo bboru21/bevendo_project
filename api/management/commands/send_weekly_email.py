@@ -4,7 +4,7 @@ import re
 from django.contrib.auth.models import User
 from django.core import management
 from django.core.management.base import BaseCommand, CommandError
-
+from django.utils.dateformat import DateFormat
 from django.conf import settings
 from django.db.models import Max
 from api.models import (
@@ -95,9 +95,9 @@ class Command(BaseCommand):
             message = render_to_string('api/templates/email.txt', {
                 'feasts': feasts,
                 'products': products,
-                'start_date': start_date.strftime('%B %d'),
-                'end_date': end_date.strftime('%B %d'),
-                'latest_pull_date': latest_pull_date.strftime('%B %d, %Y'),
+                'start_date': DateFormat(start_date).format('l, F jS'),
+                'end_date': DateFormat(end_date).format('l, F jS'),
+                'latest_pull_date': DateFormat(latest_pull_date).format('l, F jS'),
                 'price_per_liter_score_percent': str(int(PRICE_PER_LITER_SCORE_PERCENT * 100)),
                 'price_per_size_score_percent': str(int(PRICE_PER_SIZE_SCORE_PERCENT * 100)),
                 'deals_min_price_score': DEALS_MIN_PRICE_SCORE,
@@ -107,9 +107,9 @@ class Command(BaseCommand):
                 'feasts': feasts,
                 'products': products,
                 'deals': deals,
-                'start_date': start_date.strftime('%B %d'),
-                'end_date': end_date.strftime('%B %d'),
-                'latest_pull_date': latest_pull_date.strftime('%B %d, %Y'),
+                'start_date': DateFormat(start_date).format('l, F jS'),
+                'end_date': DateFormat(end_date).format('l, F jS'),
+                'latest_pull_date': DateFormat(latest_pull_date).format('l, F jS'),
                 'price_per_liter_score_percent': str(int(PRICE_PER_LITER_SCORE_PERCENT * 100)),
                 'price_per_size_score_percent': str(int(PRICE_PER_SIZE_SCORE_PERCENT * 100)),
                 'deals_min_price_score': DEALS_MIN_PRICE_SCORE,

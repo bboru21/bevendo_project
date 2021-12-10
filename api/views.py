@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.utils.dateformat import DateFormat
 
 from .serializers import (
     CocktailSerializer,
@@ -57,9 +58,9 @@ def email_preview(request, format='html'):
         context = {
             'feasts': feasts,
             'products': products,
-            'start_date': start_date.strftime('%B %d'),
-            'end_date': end_date.strftime('%B %d'),
-            'latest_pull_date': latest_pull_date.strftime('%B %d, %Y'),
+            'start_date': DateFormat(start_date).format('l, F jS'),
+            'end_date': DateFormat(end_date).format('l, F jS'),
+            'latest_pull_date': DateFormat(latest_pull_date).format('l, F jS'),
             'price_per_liter_score_percent': str(int(PRICE_PER_LITER_SCORE_PERCENT * 100)),
             'price_per_size_score_percent': str(int(PRICE_PER_SIZE_SCORE_PERCENT * 100)),
             'deals_min_price_score': DEALS_MIN_PRICE_SCORE,
@@ -70,9 +71,9 @@ def email_preview(request, format='html'):
             'feasts': feasts,
             'products': products,
             'deals': deals,
-            'start_date': start_date.strftime('%B %d'),
-            'end_date': end_date.strftime('%B %d'),
-            'latest_pull_date': latest_pull_date.strftime('%B %d, %Y'),
+            'start_date': DateFormat(start_date).format('l, F jS'),
+            'end_date': DateFormat(end_date).format('l, F jS'),
+            'latest_pull_date': DateFormat(latest_pull_date).format('l, F jS'),
             'price_per_liter_score_percent': str(int(PRICE_PER_LITER_SCORE_PERCENT * 100)),
             'price_per_size_score_percent': str(int(PRICE_PER_SIZE_SCORE_PERCENT * 100)),
             'deals_min_price_score': DEALS_MIN_PRICE_SCORE,
