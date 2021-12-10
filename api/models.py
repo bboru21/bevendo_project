@@ -18,6 +18,8 @@ INGREDIENT_MEASUREMENTS = (
     ('part', 'parts'),
     ('peel', 'peels'),
     ('pint', 'pints'),
+    ('pound', 'pounds'),
+    ('rind', 'rinds'),
     ('scoop', 'scoops'),
     ('slice', 'slices'),
     ('splash', 'splashes'),
@@ -42,9 +44,14 @@ MEASUREMENTS_CHOICES = [ (singular, singular.title()) for ( singular, plural) in
 
 PREPARATION_CHOICES = (
     ('broken in half', 'Broken In Half'),
+    ('broken up', 'Broken Up'),
     ('chopped canned', 'Chopped Canned'),
+    ('cut in pieces', 'Cut In Pieces'),
     ('hollowed out', 'Hollowed Out'),
     ('thinly sliced', 'Thinly Sliced'),
+    ('sliced', 'Sliced'),
+    ('juiced', 'Juiced'),
+    ('grated', 'Grated'),
 )
 
 '''
