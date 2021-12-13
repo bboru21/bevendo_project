@@ -9,19 +9,8 @@ from .models import (
 )
 
 
-class AutocompleteAdmin(admin.ModelAdmin):
-
-    class Media:
-        abstract = True
-        # Hack to provide jQuery namespace for autocomplete-light libraries
-        js = (
-            'admin/js/vendor/jquery/jquery.min.js',
-            'autocomplete_light/jquery.init.js',
-        )
-
-
 @admin.register(Cocktail)
-class CocktailAdmin(AutocompleteAdmin):
+class CocktailAdmin(admin.ModelAdmin):
     search_fields = (
         'name',
     )
@@ -32,15 +21,15 @@ class CocktailAdmin(AutocompleteAdmin):
 
 
 @admin.register(CocktailIngredient)
-class CocktailIngredientAdmin(AutocompleteAdmin):
+class CocktailIngredientAdmin(admin.ModelAdmin):
     ordering = ('ingredient__name',)
     fields = ('ingredient', 'amount', 'measurement', 'preparation',)
     autocomplete_fields = ('ingredient',)
-    search_fields = ('ingredient__name',)
+    search_fields = ('ingredient__name', 'amount', 'measurement', 'preparation',)
 
 
 @admin.register(Ingredient)
-class IngredientAdmin(AutocompleteAdmin):
+class IngredientAdmin(admin.ModelAdmin):
     # form = IngredientForm
     search_fields = (
         'name',
@@ -49,7 +38,7 @@ class IngredientAdmin(AutocompleteAdmin):
     fields = ('name', 'is_controlled',)
 
 @admin.register(Feast)
-class FeastAdmin(AutocompleteAdmin):
+class FeastAdmin(admin.ModelAdmin):
     # form = FeastForm
     search_fields = (
         'name',
@@ -61,7 +50,7 @@ class FeastAdmin(AutocompleteAdmin):
 
 
 @admin.register(ControlledBeverage)
-class ControlledBeverageAdmin(AutocompleteAdmin):
+class ControlledBeverageAdmin(admin.ModelAdmin):
     # form = ControlledBeverageForm
     search_fields = (
         'name',

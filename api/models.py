@@ -19,6 +19,7 @@ INGREDIENT_MEASUREMENTS = (
     ('peel', 'peels'),
     ('pint', 'pints'),
     ('pound', 'pounds'),
+    ('quart', 'quarts'),
     ('rind', 'rinds'),
     ('scoop', 'scoops'),
     ('slice', 'slices'),
@@ -29,6 +30,7 @@ INGREDIENT_MEASUREMENTS = (
     ('stalk', 'stalks'),
     ('tablespoon', 'tablespoons'),
     ('teaspoon', 'teaspoons'),
+    ('to taste', 'to taste'),
     ('twist', 'twists'),
     ('wedge', 'wedges'),
     ('wheel', 'wheels'),
@@ -127,7 +129,7 @@ class CocktailIngredient(models.Model):
         return ' '.join(parts)
 
     class Meta:
-        ordering = []
+        ordering = ('ingredient__name', 'amount', 'measurement',)
         verbose_name = 'Cocktail Ingredient'
         verbose_name_plural = 'Cocktail Ingredients'
         app_label = 'api'
