@@ -54,6 +54,7 @@ PREPARATION_CHOICES = (
     ('sliced', 'Sliced'),
     ('juiced', 'Juiced'),
     ('grated', 'Grated'),
+    ('ground', 'Ground'),
 )
 
 '''
@@ -95,7 +96,7 @@ class CocktailIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     amount = models.DecimalField(
         max_digits=10,
-        decimal_places=2,
+        decimal_places=4,
         null=True,
         blank=True,
         default=None
