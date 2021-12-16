@@ -20,7 +20,7 @@ update:
 	$(PIP) install -r $(REQUIREMENTS)
 
 serve:
-	$(PYTHON) $(PROJECT)/manage.py runserver 0.0.0.0:9000 --settings bevendo.settings.local
+	$(PYTHON) $(PROJECT)/manage.py runserver 0.0.0.0:9001 --settings bevendo.settings.local
 
 make_migrations:
 	$(PYTHON) $(PROJECT)/manage.py makemigrations --settings bevendo.settings.local
