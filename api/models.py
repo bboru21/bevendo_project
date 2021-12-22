@@ -47,6 +47,7 @@ MEASUREMENTS_CHOICES = [ (singular, singular.title()) for ( singular, plural) in
 PREPARATION_CHOICES = (
     ('broken in half', 'Broken In Half'),
     ('broken up', 'Broken Up'),
+    ('chilled', 'Chilled'),
     ('chopped canned', 'Chopped Canned'),
     ('cut in pieces', 'Cut In Pieces'),
     ('hollowed out', 'Hollowed Out'),
