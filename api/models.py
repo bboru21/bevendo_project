@@ -25,6 +25,7 @@ INGREDIENT_MEASUREMENTS = (
     ('scoop', 'scoops'),
     ('slice', 'slices'),
     ('splash', 'splashes'),
+    ('spear', 'spears'),
     ('spiral', 'spirals'),
     ('sprig', 'sprigs'),
     ('sprinkle', 'sprinkles'),
