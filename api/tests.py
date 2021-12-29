@@ -32,7 +32,7 @@ class IngredientTestCase(TestCase):
         self.assertIsInstance(water.__str__(), str)
 
     def test_name_max_length(self):
-        ingredient = Ingredient.objects.get(pk=1)
+        ingredient = Ingredient.objects.get(name = 'Cool Cool Water')
         max_length = ingredient._meta.get_field('name').max_length
         self.assertEqual(max_length, 250)
 
@@ -50,11 +50,11 @@ class ControlledBeverageTest(TestCase):
         beverage.ingredients.set(Ingredient.objects.filter(pk=1))
 
     def test_str(self):
-        beverage = ControlledBeverage.objects.get(pk=1)
+        beverage = ControlledBeverage.objects.get(name='Apothic Red')
         self.assertIsInstance(beverage.__str__(), str)
 
     def test_name_max_length(self):
-        beverage = ControlledBeverage.objects.get(pk=1)
+        beverage = ControlledBeverage.objects.get(name='Apothic Red')
         max_length = beverage._meta.get_field('name').max_length
         self.assertEqual(max_length, 250)
 
