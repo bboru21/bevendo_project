@@ -51,6 +51,7 @@ PREPARATION_CHOICES = (
     ('broken up', 'Broken Up'),
     ('chilled', 'Chilled'),
     ('chopped canned', 'Chopped Canned'),
+    ('cored', 'Cored'),
     ('cut in pieces', 'Cut In Pieces'),
     ('hollowed out', 'Hollowed Out'),
     ('hot', 'Hot'),
