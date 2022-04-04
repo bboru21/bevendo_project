@@ -61,6 +61,7 @@ PREPARATION_CHOICES = (
     ('juiced', 'Juiced'),
     ('grated', 'Grated'),
     ('ground', 'Ground'),
+    ('warmed', 'Warmed'),
 )
 
 '''
