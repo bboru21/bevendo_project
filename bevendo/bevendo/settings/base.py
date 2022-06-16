@@ -81,6 +81,7 @@ DJANGO_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nextjs',
     'rest_framework',
     'scrapy',
 )
