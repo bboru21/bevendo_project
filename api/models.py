@@ -193,6 +193,11 @@ class Feast(models.Model):
         elif self.ext_calapi_inadiutorium_celebration:
             current_year = datetime.datetime.now().year
             celebration = self.ext_calapi_inadiutorium_celebration
-            liturgical_day = celebration.liturgical_days.get(date__year=current_year)
+
+            try:
+                liturgical_day = celebration.liturgical_days.get(date__year=current_year)
+            except BaseException:
+                # should use .get here, but Sacred Heart in 2022 somehow has two days (June 24th and 25th)
+                liturgical_day = celebration.liturgical_days.filter(date__year=current_year).first()
             return liturgical_day.date
         return None
