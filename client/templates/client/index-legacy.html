@@ -1,0 +1,52 @@
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bevendo - A Companion to Drinking with the Saints</title>
+    </head>
+    <body>
+        <h1>Bevendo</h1>
+        <p>Welcome to Bevendo, a companion to Drinking with the Saints. Please excuse the extremely bare-bones layout, it's a work in progress!</p>
+
+        <h2>Weekly Virginia ABC Deals for {{latest_pull_date}}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product:</th>
+                    <th>Price (Below Avg/Size):</th>
+                    <th>On-Sale:</th>
+                    <th>Best Price:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for deal in deals %}
+                <tr>
+                    <td>
+                        <a href="{{deal.url}}?productSize={{deal.product_size}}" target="_blank">
+                            {{deal.name}} ({{deal.size}})
+                        </a>
+                    </td>
+                    <td>
+                        ${{deal.current_price}} (${{deal.price_below_average_per_size}})
+                    </td>
+                    <td>
+                        {% if deal.is_on_sale %}
+                            YES
+                        {% else %}
+                            NO
+                        {% endif %}</td>
+                    <td>{% if deal.is_best_price %}YES{% else %}NO{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Most Common Cocktail Ingredients</h2>
+        <ol>
+            {% for ingredient in cocktail_ingredients %}
+            <li>{{ingredient.ingredient__name}} ({{ingredient.ingredient_count}})</li>
+            {% endfor %}
+        </ol>
+    </body>
+</html>

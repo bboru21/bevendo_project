@@ -10,7 +10,7 @@ from ext_data.models import get_latest_price_pull_date
 
 
 def index(request):
-    return render_nextjs_page_sync(request)
+    return render_nextjs_page_sync(request, 'client/index.html')
 
 # def index(request):
 

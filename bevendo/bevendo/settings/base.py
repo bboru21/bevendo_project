@@ -293,3 +293,7 @@ SENDER_EMAIL_HOST = ''
 SENDER_EMAIL_PORT = 0
 SENDER_EMAIL_PASSWORD = ''
 ########## END EMAIL CONFIGURATION
+
+NEXTJS_SETTINGS = {
+    "nextjs_server_url": "http://127.0.0.1:3000",
+}
