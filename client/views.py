@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Count
@@ -10,7 +12,10 @@ from ext_data.models import get_latest_price_pull_date
 
 
 def index(request):
-    return render_nextjs_page_sync(request, 'client/index.html')
+    context = {
+        'page_data': {'foo': 'bar'},
+    }
+    return render_nextjs_page_sync(request, 'client/index.html', context)
 
 # def index(request):
 

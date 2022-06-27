@@ -1,14 +1,15 @@
 {% extends "django_nextjs/document_base.html" %}
 
 {% block head %}
-  ... the content you want to add to the beginning of <head> tag ...
-  {{ block.super }}
-  ... the content you want to add to the end of <head> tag ...
+    {# ... the content you want to add to the beginning of <head> tag ... #}
+    {{ block.super }}
+    {# ... the content you want to add to the end of <head> tag ... #}
 {% endblock %}
 
 
 {% block body %}
-  ... the content you want to add to the beginning of <body> tag ...
-  {{ block.super }}
-  ... the content you want to add to the end of <body> tag ...
+    {# ... the content you want to add to the beginning of <body> tag ... #}
+    {{ block.super }}
+    {# ... the content you want to add to the end of <body> tag ... #}
+    {{ page_data|json_script:"pageData" }}
 {% endblock %}
