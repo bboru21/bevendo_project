@@ -18,7 +18,11 @@ class Home extends React.Component {
 
     render() {
         const { pageData } = this.state;
-        const { foo } = pageData;
+        const {
+            deals,
+            latest_pull_date: latestPullDate,
+            cocktail_ingredients: cocktailIngredients,
+        } = pageData;
         return (
             <div className={styles.container}>
                 <Head>
@@ -26,7 +30,7 @@ class Home extends React.Component {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
 
-                  <main className={styles.main}>
+                <main className={styles.main}>
                     <h1 className={styles.title}>
                         Bevendo!
                     </h1>
@@ -35,8 +39,44 @@ class Home extends React.Component {
                         A companion app to "Drinking with the Saints".
                     </p>
 
-                    <pre>{foo && foo}</pre>
+                    {deals && (
+                        <>
+                            <h2>{`Weekly Virginia ABC Deals for ${latestPullDate}`}</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product:</th>
+                                        <th>Price (Below Avg/Size):</th>
+                                        <th>On-Sale:</th>
+                                        <th>Best Price:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {deals.map( deal => (
+                                        <tr>
+                                            <td>
+                                                <a href={`${deal.url}?productSize=${deal.product_size}`} target="_blank">
+                                                    {deal.name} ({deal.size})
+                                                </a>
+                                            </td>
+                                            <td>
+                                                ${deal.current_price} (${deal.price_below_average_per_size})
+                                            </td>
+                                            <td>{ deal.is_on_sale ? 'YES': 'NO' }</td>
+                                            <td>{ deal.is_best_price ? 'YES': 'NO' }</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </>
+                    )}
 
+                    {/*<h2>Most Common Cocktail Ingredients</h2>
+                    <ol>
+                        {cocktailIngredients.map( ingredient => (
+                            <li>{`${ingredient.ingredient__name} (${ingredient.ingredient_count})`}</li>
+                        ))}
+                    </ol>*/}
                 </main>
 
                 <footer className={styles.footer}>
