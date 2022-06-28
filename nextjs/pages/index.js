@@ -20,8 +20,8 @@ class Home extends React.Component {
         const { pageData } = this.state;
         const {
             deals,
-            latest_pull_date: latestPullDate,
-            cocktail_ingredients: cocktailIngredients,
+            latestPullDate,
+            cocktailIngredients,
         } = pageData;
         return (
             <div className={styles.container}>
@@ -36,7 +36,7 @@ class Home extends React.Component {
                     </h1>
 
                     <p className={styles.description}>
-                        A companion app to "Drinking with the Saints".
+                        Welcome to Bevendo, a companion app to Drinking with the Saints.
                     </p>
 
                     {deals && (
@@ -71,12 +71,16 @@ class Home extends React.Component {
                         </>
                     )}
 
-                    {/*<h2>Most Common Cocktail Ingredients</h2>
-                    <ol>
-                        {cocktailIngredients.map( ingredient => (
-                            <li>{`${ingredient.ingredient__name} (${ingredient.ingredient_count})`}</li>
-                        ))}
-                    </ol>*/}
+                    {cocktailIngredients && (
+                        <>
+                            <h2>Most Common Cocktail Ingredients</h2>
+                            <ol>
+                                {cocktailIngredients.map( ingredient => (
+                                    <li>{`${ingredient.name} (${ingredient.count})`}</li>
+                                ))}
+                            </ol>
+                        </>
+                    )}
                 </main>
 
                 <footer className={styles.footer}>
@@ -87,7 +91,7 @@ class Home extends React.Component {
                     >
                         Powered by{' '}
                         <span className={styles.logo}>
-                            BryanHadro.com
+                            Bryan Hadro
                         </span>
                     </a>
                 </footer>
