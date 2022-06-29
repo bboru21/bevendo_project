@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import (
     ABCProduct,
     CalapiInadiutoriumCelebration,
+    LidlProduct,
+    LidlProductPrice,
 )
 
 class ProductAdmin(admin.ModelAdmin):
@@ -75,3 +77,11 @@ class CalapiInadiutoriumCelebrationAdmin(admin.ModelAdmin):
     search_fields = (
         'title',
     )
+
+@admin.register(LidlProduct)
+class LidlProductAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(LidlProductPrice)
+class LidlProductPriceAdmin(admin.ModelAdmin):
+    pass
