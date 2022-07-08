@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import (
     ABCProduct,
     CalapiInadiutoriumCelebration,
+    LidlProduct,
+    LidlProductPrice,
 )
 
 class ProductAdmin(admin.ModelAdmin):
@@ -15,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
         'best_price_100_ml',
         'best_price_200_ml',
         'best_price_375_ml',
+        'best_price_473_ml',
         'best_price_473_18_ml',
         'best_price_750_ml',
         'best_price_1_l',
@@ -25,6 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
         'avg_price_100_ml',
         'avg_price_200_ml',
         'avg_price_375_ml',
+        'avg_price_473_ml',
         'avg_price_473_18_ml',
         'avg_price_750_ml',
         'avg_price_1_l',
@@ -41,6 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
         'best_price_100_ml',
         'best_price_200_ml',
         'best_price_375_ml',
+        'best_price_473_ml',
         'best_price_473_18_ml',
         'best_price_750_ml',
         'best_price_1_l',
@@ -50,6 +55,7 @@ class ProductAdmin(admin.ModelAdmin):
         'avg_price_100_ml',
         'avg_price_200_ml',
         'avg_price_375_ml',
+        'avg_price_473_ml',
         'avg_price_473_18_ml',
         'avg_price_750_ml',
         'avg_price_1_l',
@@ -75,3 +81,11 @@ class CalapiInadiutoriumCelebrationAdmin(admin.ModelAdmin):
     search_fields = (
         'title',
     )
+
+@admin.register(LidlProduct)
+class LidlProductAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(LidlProductPrice)
+class LidlProductPriceAdmin(admin.ModelAdmin):
+    pass

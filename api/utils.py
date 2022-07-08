@@ -147,6 +147,8 @@ def get_email_feasts_products(start_date, end_date, latest_pull_date):
                             price_index = 0
                             for price in prices:
 
+                                # from time to time, getattr fails here because ABC store changes the sizes
+                                # for now, we're OK with it failing because that forces us to update the ABCProduct model
                                 best_price_column_name = format_abc_product_best_column_name(price.size)
                                 best_price = getattr(abcproduct, best_price_column_name)
                                 amount_above_best_price = (price.current_price - best_price) if best_price else 0
